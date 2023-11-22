@@ -1,15 +1,44 @@
 {% extends "base.html" %}
+{% block head %}
+<script>
+  function sign_in() {
+    var username = document.getElementById("floatingInput").value;
+    var password = document.getElementById("floatingPassword").value;
+    
+    var data = {
+      username: username,
+      password: password
+    };
+  
+    fetch('/auth/jwt/login', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Обработка ответа от сервера
+        // ...
+      })
+      .catch(error => console.error(error));
+      console.log(username);
+  }
+  console.log(username);
+</script>
+{% endblock%}
+
 {% block content %} 
 <main id="pxid" class="form-signin w-100 m-auto">
-  <form>
+  <form id="sign_in" method="post" action="/auth/jwt/login">
     <h1 class="h3 mb-3 fw-normal">Пожалуйста войдите в учетную запись</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="username" name="username" class="form-control" id="floatingInput" placeholder="name@example.com" value="test@test.com">
       <label for="floatingInput">Email адрес</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Пароль</label>
     </div>
 
@@ -19,7 +48,7 @@
         Запомнить меня
       </label>
     </div>
-    <a href="../#" class="btn btn-lg btn-light fw-bold border-white bg-white">Войти</a>
+    <button onclick="sign_in()" class="btn btn-lg btn-light fw-bold border-white bg-white">Войти</a>
   </form>
 </main>
 {% endblock %}
