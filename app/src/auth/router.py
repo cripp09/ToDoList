@@ -1,18 +1,12 @@
 from fastapi import APIRouter, Depends, Form, Request
-from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select, insert
-from sqlalchemy.ext.asyncio import AsyncSession
 from app.src.auth.models import User
-from app.src.database import get_async_session
 from app.src.auth.base_config import current_user
-from app.src.auth.schemas import UserCreate, UserRead
+
 
 templates = Jinja2Templates(directory="app/templates")
 
 router = APIRouter(
-    #prefix="/itsme",
-    #tags=["itsme"]
 )
 
 @router.get("/itsme")

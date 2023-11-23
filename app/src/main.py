@@ -1,11 +1,9 @@
 from fastapi import FastAPI
-from fastapi import APIRouter, Depends, Form, Request, Response, status
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 from app.src.auth.base_config import fastapi_users, auth_backend
 from app.src.auth.schemas import UserCreate, UserRead
 from app.src.auth.router import router as router_user
-from app.src.auth.models import User
 
 app = FastAPI()
 
@@ -25,6 +23,6 @@ app.include_router(
 )
 
 app.include_router(router_user)
-#app.include_router(posts.router)
+
 
 
