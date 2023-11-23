@@ -16,3 +16,4 @@ migrations/versions/__pycache__/17e8373f77ea_create_user_model.cpython-310.pyc
 migrations/env.py
 migrations/README
 app/__pycache__/main.cpython-310.pyc
+.vscode
