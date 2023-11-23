@@ -12,17 +12,11 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
-def resp(response: Response):
-    response.headers = "/"
-    response.status_code = status.HTTP_302_FOUND
-    return response
-
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
     prefix="/auth/jwt",
     tags=["auth"],
-
-)
+    )
 
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate),
@@ -32,3 +26,5 @@ app.include_router(
 
 app.include_router(router_user)
 #app.include_router(posts.router)
+
+

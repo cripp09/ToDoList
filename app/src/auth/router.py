@@ -27,7 +27,9 @@ def home_page(request: Request):
 def sign_in_get(request: Request):
     return templates.TemplateResponse("sign_in.html", {"request":request})
 
-'''@router.post("/auth/jwt/login")
-def sign_in_post(email: str = Form(...), password: str = Form(...)):
-    print(email, password)
-    return RedirectResponse("/", status_code=303)'''
+
+@router.get("/dashboard")
+def sign_in_get(request: Request, user: User= Depends(current_user)):
+    username = user.username
+    return templates.TemplateResponse("dashboard.html", {"request":request,
+                                                         'username': username})

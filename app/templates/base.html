@@ -120,30 +120,15 @@
       <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
     </symbol>
   </svg>
-  <div class="video-background">
-    <video autoplay muted loop>
-      <source src="{{ url_for('static', path='video/background_1080p.mp4') }}" type="video/mp4">
-    </video>
-  </div>
-    
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">Taskmaster</h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a href="/"class="nav-link fw-bold py-1 px-0 active" aria-current="page" >Главная</a>
-        <a class="nav-link fw-bold py-1 px-0" href="#">О сайте</a>
-        <a class="nav-link fw-bold py-1 px-0" href="#">Контакты</a>
-      </nav>
-    </div>
-  </header>
+
+
+  
 {% block content %}
 {% endblock %}
 
 <footer class="mt-auto text-white-50">
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
-  </footer>
-</div>
+  <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+</footer>
 <script src="{{ url_for('static', path='assets/dist/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>

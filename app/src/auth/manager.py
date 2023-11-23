@@ -4,7 +4,7 @@ from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
 from app.src.auth.models import User
 from app.src.auth.utils import get_user_db
-from app.src.auth import models
+
 
 SECRET = "SECRET_AUTH"
 
@@ -21,7 +21,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         user_create: schemas.UC,
         safe: bool = False,
         request: Optional[Request] = None,
-    ) -> models:
+    ) -> models.UP:
         await self.validate_password(user_create.password, user_create)
 
         existing_user = await self.user_db.get_by_email(user_create.email)

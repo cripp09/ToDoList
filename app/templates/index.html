@@ -1,5 +1,19 @@
 {% extends "base.html" %}
+
+
 {% block content %}
+<div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0">Taskmaster</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a href="/"class="nav-link fw-bold py-1 px-0 active" aria-current="page" >Главная</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">О сайте</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
 <main id="pxid" class="px-3">
   <h1>Добро пожаловать в Taskmaster!</h1>
   <p class="lead_desc">Удобное и эффективное веб-приложение для создания, управления и отслеживания задач. Организуйте свое время, повысьте продуктивность и достигайте цели с легкостью. Просто войдите в свой личный кабинет и начните планировать свой день уже сегодня!</p>
@@ -7,4 +21,11 @@
     <a href="/sign_in" class="btn btn-lg btn-light fw-bold border-white bg-white">Продолжить</a>
   </p>
 </main>
+  
+<div class="video-background">
+  <video autoplay muted loop>
+    <source src="{{ url_for('static', path='video/background_1080p.mp4') }}" type="video/mp4">
+  </video>
+</div>
+</div>
 {% endblock %}
