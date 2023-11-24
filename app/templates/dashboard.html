@@ -1,6 +1,111 @@
 {% extends "base2.html" %}
 {% block head %}
 
+<style>
+  .container2 {
+        display: flex; /* Используем flexbox */
+      }
+
+      .column1 {
+        flex: 0.2; /* Первая колонка будет растянута на всю доступную ширину */
+      }
+
+      .column2 {
+        flex: 2; /* Вторая колонка будет в два раза шире первой колонки */
+      } 
+
+  .container_head { 
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+  }
+  .container_head .add_task {
+    float: left;
+  }
+  .container_head h2 {
+    text-align: right;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    padding-right: 100px;
+  }
+
+  .modal {
+    display:inline;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    visibility: hidden; /* Изначально скрываем модальное окно */
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    transform: scale(0);
+    transition: transform .6s;
+  }
+  .container_button{
+    display:contents;
+    padding: right;
+
+  }
+  .container_button .okBtn {
+    width: 100px;
+  } 
+  .container_button .closeBtn {
+    width: 100px;
+
+  }
+
+  .modal.open{
+    visibility: visible;
+    opacity: 1;
+
+  }
+
+  .modal.open .modal-content{
+    transform: scale(1);
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Ваш JavaScript-код здесь
+    // Получаем ссылку и модальное окно
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const modal = document.getElementById("my_modal");
+  
+  // При клике по ссылке отображаем модальное окно
+  addTaskBtn.addEventListener("click", function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+    modal.classList.add("open");
+  });
+  
+  // При клике на крестик закрываем модальное окно
+  const closeBtn = document.querySelector(".close");
+  closeBtn.addEventListener("click", function() {
+    modal.classList.remove("open");
+  });
+  });
+  
+</script>
 {% endblock%}
 
 {% block content %}
@@ -20,7 +125,7 @@
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Sign out</a></li>
             </ul>
-          </div>
+        </div>
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
           <li class="nav-item">
             <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
@@ -53,8 +158,30 @@
     </div>
     <div class="column2">
       <!-- Контент для второй колонки -->
-    <h5>Добро пожаловать, {{username}} </h5>
-    </div>
+      <div class="container_head" >
+        <a href="#" class="add_task" id="addTaskBtn"><span class="icon_add" aria-hidden="true"><svg width="13" height="13"><path fill="currentColor" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg></span> Добавить задачу</a>
+
+        <!-- Модальное окно -->
+        <div class="modal" id="my_modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus harum sed quidem illo id, corrupti quia, consequuntur porro nulla exercitationem amet, itaque dolore cupiditate accusamus fugiat distinctio repellendus! Inventore architecto, itaque quae minus eum sed aut tempora aperiam explicabo quos atque rerum tempore reprehenderit corrupti? Optio delectus quo deleniti nemo tenetur consequuntur temporibus in neque ratione voluptatum vel rerum, ullam voluptate maxime labore consequatur ex beatae. Odit, saepe! Totam, quam magnam. Quidem maiores temporibus deleniti eaque ea! Aut, laudantium qui. Quos nemo nesciunt non excepturi ad expedita, doloribus fuga aut rerum eaque atque sit neque asperiores provident quod distinctio quisquam reprehenderit. Vero sit quidem mollitia laboriosam assumenda facilis cum impedit ipsa, nobis fugit saepe at cupiditate incidunt consequuntur, qui voluptas. Dolor eos iusto adipisci! Illum quaerat excepturi nulla ipsam architecto praesentium saepe, ullam tempore iusto veniam officia eveniet veritatis quis quibusdam consequatur voluptatibus pariatur temporibus error laboriosam eligendi nemo tempora! Harum id iure, quas cumque quisquam magnam voluptate voluptatum quos quis molestiae dolor repudiandae saepe earum nulla aperiam obcaecati assumenda incidunt? Earum, voluptates nulla, animi fuga odit aut vel suscipit nemo eos a voluptatibus odio ratione excepturi, vero architecto praesentium libero sed! Laborum assumenda eum ducimus! Ab deleniti a, quis laboriosam dolores beatae excepturi modi tempora eius temporibus eligendi ex dicta, impedit ipsam earum autem minima assumenda illum voluptates, atque dolorum. Qui minus sit a ex veniam fugiat totam quasi nam possimus distinctio maiores culpa ullam velit molestias, minima consequatur pariatur ratione eius quod nobis numquam obcaecati. Sed, accusamus, necessitatibus facere eos delectus dolor sequi asperiores debitis eaque, ab dolorem. Quia incidunt modi officiis reprehenderit quaerat. Officiis aliquid velit, ex repudiandae dicta deleniti est repellat alias, doloremque quas exercitationem minima inventore voluptatum aliquam ratione autem a quasi reprehenderit culpa, ab iure debitis voluptatibus? Quam iste eaque in dicta maxime iusto sequi aliquid reprehenderit nisi blanditiis totam reiciendis, dolores, porro ex nobis molestiae harum optio. Delectus, iure nam! Natus provident mollitia dignissimos praesentium dolor quam laboriosam eius voluptate itaque officiis. Amet impedit molestiae inventore laudantium? Delectus harum accusantium ex consequuntur aliquam vero labore nisi commodi placeat quos ipsam molestias repellendus laborum, ad nesciunt nostrum in accusamus eos autem incidunt illo? Nesciunt animi magnam rem repellendus blanditiis iste laboriosam reprehenderit nemo id dicta molestiae maiores voluptatibus mollitia, minima aperiam. Cupiditate quae quasi ut unde eius ipsa. Necessitatibus, ratione. Repellat ipsa, quo aliquid voluptatem iste dicta atque dignissimos porro nobis sapiente, beatae aperiam.
+            </p><!-- Ваши инпуты и чекбоксы здесь -->
+            <div class="container_btn">
+              <button type="button" class="btn btn-success">Добавить</button>
+              <button type="button" class="btn btn-secondary">Отменить</button>
+            </div>
+          </div>
+        </div>
+
+        <h2>Добро пожаловать, {{username}} </h6>
+     </div> 
+    <hr width=95% size="2" color="#ff0000" />
+</div>
 
 
 {% endblock %}
+
+
+
+

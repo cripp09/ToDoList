@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 @router.get("/itsme")
-def protected_route(user: User= Depends(current_user)):
+def protected_route(user: User = Depends(current_user)):
     return f"Hello, {user.username}"
 
 @router.get("/")
@@ -23,7 +23,7 @@ def sign_in_get(request: Request):
 
 
 @router.get("/dashboard")
-def sign_in_get(request: Request, user: User= Depends(current_user)):
+def sign_in_get(request: Request, user: User = Depends(current_user)):
     username = user.username
     return templates.TemplateResponse("dashboard.html", {"request":request,
                                                          'username': username})
