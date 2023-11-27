@@ -1,96 +1,13 @@
 {% extends "base2.html" %}
 {% block head %}
-
-<style>
-  .container2 {
-        display: flex; /* Используем flexbox */
-      }
-
-      .column1 {
-        flex: 0.2; /* Первая колонка будет растянута на всю доступную ширину */
-      }
-
-      .column2 {
-        flex: 2; /* Вторая колонка будет в два раза шире первой колонки */
-      } 
-
-  .container_head { 
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
-  }
-  .container_head .add_task {
-    float: left;
-  }
-  .container_head h2 {
-    text-align: right;
-    font-size: 18px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    padding-right: 100px;
-  }
-
-  .modal {
-    display:inline;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    visibility: hidden; /* Изначально скрываем модальное окно */
-    opacity: 0;
-    transition: opacity 0.2s, visibility 0.2s;
-  }
-
-  .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    transform: scale(0);
-    transition: transform .6s;
-  }
-  .container_button{
-    display:contents;
-    padding: right;
-
-  }
-  .container_button .okBtn {
-    width: 100px;
-  } 
-  .container_button .closeBtn {
-    width: 100px;
-
-  }
-
-  .modal.open{
-    visibility: visible;
-    opacity: 1;
-
-  }
-
-  .modal.open .modal-content{
-    transform: scale(1);
-  }
-
-  .close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 10px;
-    cursor: pointer;
-  }
-
-</style>
+<link href="{{ url_for('static', path='css/dashboard.css') }}" rel="stylesheet">
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Ваш JavaScript-код здесь
     // Получаем ссылку и модальное окно
   const addTaskBtn = document.getElementById("addTaskBtn");
   const modal = document.getElementById("my_modal");
+
   
   // При клике по ссылке отображаем модальное окно
   addTaskBtn.addEventListener("click", function(event) {
@@ -103,9 +20,15 @@
   closeBtn.addEventListener("click", function() {
     modal.classList.remove("open");
   });
+
+  const close_modal_btn = document.getElementById('close_modal_btn');
+  close_modal_btn.addEventListener("click", function() {
+    modal.classList.remove("open");
+  });
   });
   
 </script>
+
 {% endblock%}
 
 {% block content %}
@@ -123,7 +46,7 @@
               <li><a class="dropdown-item" href="#">Settings</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li onclick="logout()" style="cursor: pointer;" class="dropdown-item">Sign out</a></li>
             </ul>
         </div>
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -148,7 +71,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Телефонная книга" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
             </a>
           </li>
@@ -160,28 +83,174 @@
       <!-- Контент для второй колонки -->
       <div class="container_head" >
         <a href="#" class="add_task" id="addTaskBtn"><span class="icon_add" aria-hidden="true"><svg width="13" height="13"><path fill="currentColor" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg></span> Добавить задачу</a>
-
+        <form id="search_field" class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+        <h2>Добро пожаловать, {{username}} </h2>
         <!-- Модальное окно -->
         <div class="modal" id="my_modal">
           <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus harum sed quidem illo id, corrupti quia, consequuntur porro nulla exercitationem amet, itaque dolore cupiditate accusamus fugiat distinctio repellendus! Inventore architecto, itaque quae minus eum sed aut tempora aperiam explicabo quos atque rerum tempore reprehenderit corrupti? Optio delectus quo deleniti nemo tenetur consequuntur temporibus in neque ratione voluptatum vel rerum, ullam voluptate maxime labore consequatur ex beatae. Odit, saepe! Totam, quam magnam. Quidem maiores temporibus deleniti eaque ea! Aut, laudantium qui. Quos nemo nesciunt non excepturi ad expedita, doloribus fuga aut rerum eaque atque sit neque asperiores provident quod distinctio quisquam reprehenderit. Vero sit quidem mollitia laboriosam assumenda facilis cum impedit ipsa, nobis fugit saepe at cupiditate incidunt consequuntur, qui voluptas. Dolor eos iusto adipisci! Illum quaerat excepturi nulla ipsam architecto praesentium saepe, ullam tempore iusto veniam officia eveniet veritatis quis quibusdam consequatur voluptatibus pariatur temporibus error laboriosam eligendi nemo tempora! Harum id iure, quas cumque quisquam magnam voluptate voluptatum quos quis molestiae dolor repudiandae saepe earum nulla aperiam obcaecati assumenda incidunt? Earum, voluptates nulla, animi fuga odit aut vel suscipit nemo eos a voluptatibus odio ratione excepturi, vero architecto praesentium libero sed! Laborum assumenda eum ducimus! Ab deleniti a, quis laboriosam dolores beatae excepturi modi tempora eius temporibus eligendi ex dicta, impedit ipsam earum autem minima assumenda illum voluptates, atque dolorum. Qui minus sit a ex veniam fugiat totam quasi nam possimus distinctio maiores culpa ullam velit molestias, minima consequatur pariatur ratione eius quod nobis numquam obcaecati. Sed, accusamus, necessitatibus facere eos delectus dolor sequi asperiores debitis eaque, ab dolorem. Quia incidunt modi officiis reprehenderit quaerat. Officiis aliquid velit, ex repudiandae dicta deleniti est repellat alias, doloremque quas exercitationem minima inventore voluptatum aliquam ratione autem a quasi reprehenderit culpa, ab iure debitis voluptatibus? Quam iste eaque in dicta maxime iusto sequi aliquid reprehenderit nisi blanditiis totam reiciendis, dolores, porro ex nobis molestiae harum optio. Delectus, iure nam! Natus provident mollitia dignissimos praesentium dolor quam laboriosam eius voluptate itaque officiis. Amet impedit molestiae inventore laudantium? Delectus harum accusantium ex consequuntur aliquam vero labore nisi commodi placeat quos ipsam molestias repellendus laborum, ad nesciunt nostrum in accusamus eos autem incidunt illo? Nesciunt animi magnam rem repellendus blanditiis iste laboriosam reprehenderit nemo id dicta molestiae maiores voluptatibus mollitia, minima aperiam. Cupiditate quae quasi ut unde eius ipsa. Necessitatibus, ratione. Repellat ipsa, quo aliquid voluptatem iste dicta atque dignissimos porro nobis sapiente, beatae aperiam.
-            </p><!-- Ваши инпуты и чекбоксы здесь -->
-            <div class="container_btn">
+            <p class="new_task_modal_window">
+              <input type="task_title" name="task_title" id="task_title" placeholder="Название задачи">
+              <br>
+              <input type="task_content" name="task_content" id="task_content" placeholder="Описание">
+              <br>
+              <label for="Calendar">Выполнить до:</label>
+              <input type="datetime-local" name="Date" id="Calendar">
+              <div>
+                <!-- Example single danger button -->
+                <div class="btn-group" style="display:inherit;" >
+                  <button id="btn_priority" class="btn btn-secondary btn-sm dropdown-toggle" style="background: white; color:rgb(0, 0, 0);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Приоритет
+                  </button>
+                  <ul class="dropdown-menu" style=" cursor:pointer; text-align:center; background: rgb(255, 255, 255);">
+                    <li onclick="setStatus('Приоритет1','btn_priority')" style="font-weight: bold;">Приоритет 1</li>
+                    <li onclick="setStatus('Приоритет2','btn_priority')" style="font-weight: bold; color: green; border-top:1px solid #000000;">Приоритет 2</li>
+                    <li onclick="setStatus('Приоритет3','btn_priority')" style="font-weight: bold; color: blue; border-top:1px solid #000000;">Приоритет 3</li>
+                    <li onclick="setStatus('Приоритет4','btn_priority')" style="font-weight: bold; color: red; border-top:1px solid #000000;">Приоритет 4</li>
+                  </ul>
+                  <button id="remind_date" class="btn btn-secondary btn-sm dropdown-toggle" style="background: white; color:rgb(0, 0, 0);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Напоминать
+                  </button>
+                  <ul class="dropdown-menu" style=" cursor:pointer; text-align:center; background: rgb(255, 255, 255);">
+                    <li onclick="setStatus('Каждый час','remind_date')" style="font-weight: bold;">Каждый час</li>
+                    <li onclick="setStatus('Каждый день','remind_date')" style="border-top:1px solid #000000;font-weight: bold;">Каждый день</li>
+                    <label for="remind_calendar", style="font-weight: bold; border-top:1px solid #000000; padding-left: 20%; display:flex;">Выбрать дату</label>
+                    <input type="datetime-local" name="Date" id="remind_calendar">
+                  </ul>
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" id="btn_status" style="background: white; color:rgb(0, 0, 0);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Статус
+                  </button>
+                  <ul class="dropdown-menu" style="cursor:pointer; text-align:center; background: rgb(255, 255, 255);">
+                    <li onclick="setStatus('Новая','btn_status')" style="font-weight: bold;">Новая</li>
+                    <li onclick="setStatus('Уже в проекте','btn_status')" style="font-weight: bold; color: green; border-top:1px solid #000000;">Уже в проекте</li>
+                    <li onclick="setStatus('На будущее','btn_status')" style="font-weight: bold; color: blue; border-top:1px solid #000000;">На будущее</li>
+                    <li onclick="setStatus('Заметка','btn_status')" style="font-weight: bold; color: red; border-top:1px solid #000000;">Заметка</li>
+                  </ul>
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" id="btn_project" style="background: white; color:rgb(0, 0, 0);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Выбрать проект
+                  </button>
+                  <ul class="dropdown-menu" style=" cursor:pointer; text-align:center; background: rgb(255, 255, 255);">
+                    <li onclick="setStatus('Новый','btn_project')" style="font-weight: bold;">Новый</li>
+                  </ul>
+                </div>
+              </div>
+              </p>
+            <div class="container_btn" >
               <button type="button" class="btn btn-success">Добавить</button>
-              <button type="button" class="btn btn-secondary">Отменить</button>
+              <button type="button" class="btn btn-secondary" id="close_modal_btn">Отменить</button>
             </div>
+            
           </div>
         </div>
-
-        <h2>Добро пожаловать, {{username}} </h6>
      </div> 
     <hr width=95% size="2" color="#ff0000" />
+    {% for i in data %}
+        {{i}}
+
+    {% endfor %}
 </div>
 
+<script>
+  function logout() {
+    fetch('/auth/jwt/logout', {
+      method: 'POST',
+    })
+      .then(response => {
+        if (response.ok) {
+          // Обработка успешного ответа
+          window.location.href = "/"; // перенаправление на другую страницу в случае успешной аутентификации
+        }
+      })
+      .catch(error => {
+        // Обработка ошибки сети
+        console.error(error);
+      });
+  }
+</script>
 
+<script>
+  let calendar = document.querySelector('#Calendar');
+  
+  calendar.addEventListener('input', function () {
+    let datetime = calendar.value;
+    let formattedDate = datetime.slice(0, 19).replace("T", " ");
+    return formattedDate
+    console.log(formattedDate);
+  });
+</script>
+
+<script>
+  let r_calendar = document.querySelector('#remind_calendar');
+  
+    r_calendar.addEventListener('input', function () {
+    let datetime = r_calendar.value;
+    let formattedDate = datetime.slice(0, 19).replace("T", " ");
+    console.log(formattedDate);
+    setDate(formattedDate)
+  });
+</script>
+
+<script>
+// Получение кнопки "Добавить"
+var addButton = document.querySelector('.container_btn .btn-success');
+
+// Добавление слушателя событий на кнопку "Добавить"
+addButton.addEventListener('click', function() {
+  // Получение значений полей ввода
+  var taskTitle = document.getElementById('task_title').value;
+  var taskContent = document.getElementById('task_content').value;
+  var dueDate = document.getElementById('Calendar').value;
+  var remindDate = document.getElementById('remind_date').innerText;
+  var priority = document.getElementById('btn_priority').innerText;
+  var status = document.getElementById('btn_status').innerText;
+  var project = document.getElementById('btn_project').innerText;
+  // Создание объекта данных для отправки
+  var data = {
+    title: taskTitle,
+    content: taskContent,
+    status: status,
+    priorty: priority,
+    completion_date: dueDate.replace("T", " "),
+    project_name: project,
+    remind_date: remindDate,
+  };
+
+  // Опции для запроса
+  var options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+
+  // Отправка запроса
+  fetch('/dashboard', options)
+    .then(function(response) {
+      // Обрабатывать ответ от сервера здесь
+      console.log(response);
+    })
+    .catch(function(error) {
+      // Обрабатывать ошибку здесь
+      console.error(error);
+    });
+});
+</script>
+
+<script>
+  function setDate(date) {
+    var date = date
+    setStatus(date, "remind_date");
+  }
+
+  function setStatus(value, id) {
+  var innet_text = value;
+  console.log(innet_text); // Выводим значение в консоль
+  var btn_text = document.getElementById(id);
+  btn_text.innerText = innet_text;
+  // Дальнейшие действия с переменной status
+  }
+</script>
 {% endblock %}
-
-
-
-

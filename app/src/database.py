@@ -2,6 +2,8 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 from app.src.config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
+from contextlib import asynccontextmanager
+from sqlalchemy.orm import sessionmaker
 
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -24,3 +26,20 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
+def async_session_generator():
+    return sessionmaker(
+        engine, class_=AsyncSession
+    )
+
+@asynccontextmanager
+async def get_session():
+    try:
+        async_session = async_session_generator()
+
+        async with async_session() as session:
+            yield session
+    except:
+        await session.rollback()
+        raise
+    finally:
+        await session.close()

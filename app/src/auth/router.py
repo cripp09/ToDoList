@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, Form, Request
 from fastapi.templating import Jinja2Templates
 from app.src.auth.models import User
 from app.src.auth.base_config import current_user
+from app.src.auth.utils import get_data
+from app.src.database import get_session
 
 
 templates = Jinja2Templates(directory="app/templates")
@@ -23,7 +25,10 @@ def sign_in_get(request: Request):
 
 
 @router.get("/dashboard")
-def sign_in_get(request: Request, user: User = Depends(current_user)):
+async def sign_in_get(request: Request, user: User = Depends(current_user)):
     username = user.username
+    data = await get_data(user.id)
+          
     return templates.TemplateResponse("dashboard.html", {"request":request,
-                                                         'username': username})
+                                                         'username': username,
+                                                         "data": data})

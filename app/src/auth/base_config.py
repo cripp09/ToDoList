@@ -5,7 +5,7 @@ from app.src.auth.models import User
 from app.src.auth.manager import get_user_manager
 from app.src.config import SECRET_AUTH
 
-cookie_transport = CookieTransport(cookie_name="todo" ,cookie_max_age=3600)
+cookie_transport = CookieTransport(cookie_name="todo" ,cookie_max_age=86400)
 
 SECRET = SECRET_AUTH
 

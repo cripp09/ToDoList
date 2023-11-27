@@ -1,0 +1,141 @@
+.container2 {
+    display: flex; /* Используем flexbox */
+  }
+
+  .column1 {
+    flex: 0.2; /* Первая колонка будет растянута на всю доступную ширину */
+  }
+
+  .column2 {
+    flex: 2; /* Вторая колонка будет в два раза шире первой колонки */
+  } 
+
+.container_head { 
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.container_head .add_task {
+    float: left;
+    font-size: 90%;
+    padding-left: 5%;
+    padding-top: 1%;
+    font-family: system-ui,"Segoe UI", "Helvetica Neue",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+.container_head h2 {
+    text-align: right;
+    font-size: 90%;
+    padding-top: 1%;
+    font-family: system-ui,"Segoe UI", "Helvetica Neue",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    padding-right: 10%;
+}
+
+.modal {
+    display:inline;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    visibility: hidden; /* Изначально скрываем модальное окно */
+    opacity: 0;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    transform: scale(0);
+    transition: transform .2s;
+    box-shadow: -1px -1px 26px 15px rgba(176,176,176,0.38);
+}
+.container_button{
+    display:contents;
+    padding: right;
+    
+
+}
+.container_button .okBtn {
+    width: 100px;
+} 
+.container_button .closeBtn {
+    width: 100px;
+
+}
+
+.modal.open{
+    visibility: visible;
+    opacity: 1;
+
+}
+
+.modal.open .modal-content{
+    transform: scale(1);
+}
+
+#task_title{
+    margin-top: 20px;
+    display:inline-flex;
+    width: 95%;
+    border: 1px solid #888;
+    border-radius: 5px;
+    
+}
+
+#task_content{
+    display:flex;
+    width: 95%;
+    height: 50px;
+    margin-top: 10px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    
+}
+
+#btn_priority{
+
+    border: 1px solid #888;
+    border-radius: 5px;
+
+}
+
+#btn_complition_date{
+
+    border: 1px solid #888;
+    border-radius: 5px;
+
+}
+
+#btn_remind_date{
+    border: 1px solid #888;
+    border-radius: 5px;
+
+}
+
+#status{
+    border: 1px solid #888;
+    border-radius: 5px;
+
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#search_field{
+    width: 30%;
+}
+
+.btn-group{
+
+    background-color: #fff;
+}
