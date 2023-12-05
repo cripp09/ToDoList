@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Подтверждение электронной почты</title>
+</head>
+<body>
+    <h1>Подтверждение электронной почты</h1>
+    <p>Здравствуйте, {{ username }}!</p>
+    <p>Пожалуйста, нажмите на кнопку ниже, чтобы подтвердить свою электронную почту:</p>
+    <form id="verifyForm">
+        <input type="hidden" id="tokenInput" name="token" value="{{ token }}">
+        <input type="submit" value="Подтвердить">
+    </form>
+    <script>
+        const form = document.getElementById("verifyForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const tokenInput = document.getElementById("tokenInput");
+            
+            // Отправляем POST-запрос с токеном в формате JSON
+            await fetch("http://127.0.0.1/auth/verify", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ token: tokenInput.value })
+            });
+            console.log("Verification");
+            // Добавьте любую дополнительную обработку или редирект, если нужно
+        });
+    </script>
+</body>
+</html>

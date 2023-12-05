@@ -19,4 +19,4 @@ async def create_task_func(request: Request, task: PostTaskModel, c_user: User =
     
     task1 = await utils.create_task(task, c_user.id)
    
-    print(" Успешно добавлено")
+    return templates.TemplateResponse("dashboard.html", {"request":request})

@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% block head %}
+<link href="{{ url_for('static', path='css/dashboard.css') }}" rel="stylesheet">
+<style>
+  .reg_and_pass {
+    margin-left: 40%;
+  }
+</style>
 <script>
-  function handleFormSubmit(event) {
+  async function handleFormSubmit(event) {
     event.preventDefault(); // Предотвращает отправку формы по умолчанию
 
     // Отправляем форму
     let form = event.target;
     let formData = new FormData(form);
     
-    fetch(form.action, {
+    await fetch(form.action, {
       method: form.method,
       body: formData
     })
@@ -25,7 +31,35 @@
         // Обработка ошибки сети
         console.error(error);
       });
+      
   }
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Ваш JavaScript-код здесь
+    // Получаем ссылку и модальное окно
+  const addTaskBtn = document.getElementById("registrationBtn");
+  const modal = document.getElementById("my_modal");
+
+  
+  // При клике по ссылке отображаем модальное окно
+  addTaskBtn.addEventListener("click", function(event) {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+    modal.classList.add("open");
+  });
+  
+  // При клике на крестик закрываем модальное окно
+  const closeBtn = document.querySelector(".close");
+  closeBtn.addEventListener("click", function() {
+    modal.classList.remove("open");
+  });
+
+  const close_modal_btn = document.getElementById('close_modal_btn');
+  close_modal_btn.addEventListener("click", function() {
+    modal.classList.remove("open");
+  });
+  });
+  
 </script>
 {% endblock%}
 
@@ -54,12 +88,11 @@
   <h1 class="h3 mb-3 fw-normal">Пожалуйста войдите в учетную запись</h1>
 
   <div class="form-floating">
-    <input type="username" name="username" class="form-control" id="floatingInput" placeholder="name@example.com" value="test@test.com">
-    <label for="floatingInput">Email адрес</label>
+    <input type="username" name="username" class="form-control" style="background-color: white;" id="floatingInput" placeholder="Email адрес">
   </div>
   <div class="form-floating">
-    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword"></label>
+    <input type="password" name="password" class="form-control" style="background-color: white;" id="floatingPassword" placeholder="Password">
+
   </div>
 
   <div class="form-check text-start my-3">
@@ -67,10 +100,104 @@
     <label class="form-check-label" for="flexCheckDefault">
       Запомнить меня
     </label>
+    <a href="#" class="reg_and_pass">Забыл пароль</a>&nbsp&nbsp&nbsp
+    <a href="#" id="registrationBtn">Регистрация</a> 
+  </div>
+  <div class="modal" id="my_modal">
+    <div class="modal-content" style="width: 30%;">
+      <span class="close">&times;</span>
+      <p class="new_task_modal_window">
+        <h1>Регистрация</h1>
+        <div style="display:flex;">
+          <label for="nickname_modal_window">Имя:</label>
+          <input name="nickname_modal_window" class="form-control" id="nickname_modal_window" style="margin-left: 15px; background-color: white; border-radius:5px" placeholder="nickname">
+        </div>
+        <br>
+        <div style="display: flex;">
+        <label for="email_modal_window">Email:</label>&nbsp&nbsp
+        <input name="email_modal_window" type="email" class="form-control" id="email_modal_window" style="background-color: white;border-radius:5px" placeholder="mail@example.com">
+        </div>
+        <br>
+        <div style="display: flex;">
+        <label for="pass_modal_window">Пароль:</label>&nbsp&nbsp
+        <input name="pass_modal_window" id="pass_modal_window" type="password" class="form-control" style="background-color: white;border-radius:5px" placeholder="password">
+        </div>
+        <div style="display: flex;">
+        <label for="pass_modal_window">Повтор:</label>&nbsp&nbsp
+        <input name="pass_modal_window2" id="pass_modal_window2" type="password" class="form-control" style="background-color: white;border-radius:5px" placeholder="confirm password">
+        </div>
+      </p>
+      <div class="container_btn" >
+        <button type="button" class="btn btn-success" id="reg-btn" style="font-weight:normal; color: black;">Зарегистрироваться</button>
+        <button type="button" class="btn btn-secondary" id="close_modal_btn">Отменить</button>
+      </div>
+      
+    </div>
   </div>
   <button type="submit" class="btn btn-lg btn-light fw-bold border-white bg-white">Войти</button>
 </form>
 <label id="error-message"></label>
 </main>
 </div>
+
+<script>
+  // Получение кнопки "Добавить"
+  var regButton = document.getElementById('reg-btn');
+  
+  // Добавление слушателя событий на кнопку "Добавить"
+  regButton.addEventListener('click',async function() {
+    // Получение значений полей ввода
+    var username = document.getElementById('nickname_modal_window').value;
+    var email = document.getElementById('email_modal_window').value;
+    var password = document.getElementById('pass_modal_window').value;
+
+    // Создание объекта данных для отправки
+    var data = {
+      username : username,
+      email : email,
+      password : password,
+    };
+    var data_vrf = {
+      email : email,
+    };
+  
+    // Опции для запроса
+    var options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    
+    var options_vrf = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data_vrf)
+    };
+
+    // Отправка запроса
+    await fetch('/auth/register', options)
+      .then(function(response) {
+        // Обрабатывать ответ от сервера здесь
+        console.log(response);
+      })
+      .catch(function(error) {
+        // Обрабатывать ошибку здесь
+        console.error(error);
+      })
+    fetch('/auth/request-verify-token', options_vrf)
+      .then(function(response) {
+        // Обрабатывать ответ от сервера здесь
+        window.location.href = "/checkmail/"+email;
+        console.log(response);
+      })
+      .catch(function(error) {
+        // Обрабатывать ошибку здесь
+        console.error(error);
+      })
+  });
+  </script>
 {% endblock %}

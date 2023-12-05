@@ -1,9 +1,9 @@
 from typing import Optional
-
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
 from app.src.auth.models import User
 from app.src.auth.utils import get_user_db
+from app.src.auth.utils import send_mail_verify
 
 
 SECRET = "SECRET_AUTH"
@@ -41,6 +41,12 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         await self.on_after_register(created_user, request)
 
         return created_user
+    
+    async def on_after_request_verify(
+        self, user: User, token: str, request: Optional[Request] = None
+    ):
+        print(f"Verification requested for user {user.id}. Verification token: {token}")
+        send_mail_verify(user, token)
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):

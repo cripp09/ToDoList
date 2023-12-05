@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Form, Request
 from fastapi.templating import Jinja2Templates
 from app.src.auth.models import User
 from app.src.auth.base_config import current_user
-from app.src.auth.utils import get_data
+from app.src.auth.utils import get_data,send_mail_verify
 from app.src.database import get_session
 
 
@@ -28,7 +28,13 @@ def sign_in_get(request: Request):
 async def sign_in_get(request: Request, user: User = Depends(current_user)):
     username = user.username
     data = await get_data(user.id)
-          
+    print(data)      
     return templates.TemplateResponse("dashboard.html", {"request":request,
                                                          'username': username,
                                                          "data": data})
+
+@router.get("/checkmail/{email}")
+def check_mail(request: Request, email: str):
+    print(email)
+    return templates.TemplateResponse("check_mail.html", {"request":request,
+                                                          "email": email})

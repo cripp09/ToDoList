@@ -44,9 +44,9 @@
             <ul class="dropdown-menu text-small shadow">
               <li><a class="dropdown-item" href="#">New project...</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Профиль</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li onclick="logout()" style="cursor: pointer;" class="dropdown-item">Sign out</a></li>
+              <li onclick="logout()" style="cursor: pointer;" class="dropdown-item">Выйти</a></li>
             </ul>
         </div>
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -146,11 +146,44 @@
         </div>
      </div> 
     <hr width=95% size="2" color="#ff0000" />
-    {% for i in data %}
-        {{i}}
+    <section>
 
-    {% endfor %}
+      {% for i in data %}
+      <h1 onclick="vew_task()" style="cursor:pointer;">{{i.title}}</h1>
+      <p>{{i.content}}</p>
+      <div style=" display: flex;">
+        <p> Статус: {{i.status}},{{i.priorty}},  Дата реализации: {{i.completion_date}} </p>&nbsp
+        <p onclick="vew_task()" style="cursor: pointer; color: rgb(0, 17, 255);"> подробнее...</p>
+      <!--  Дата создания: {{i.created_at}}, Дата реализации: {{i.completion_date}},
+        <br>Название проекта: {{i.project_name}}, Напомнить: {{i.remind_date}}-->
+      </div>
+      <hr width=80% size="2" style="color : rgb(0, 11, 128)" >
+      {% endfor %}
+
+    </section>
+    <div class="modal" id="my_modal2">
+      <div class="modal-content">
+        <span class="close" onclick="close_vew_task()">&times;</span>
+        <p class="new_task_modal_window">
+          <h4>asdasdas</h4>
+        </p>
+      </div>
+    </div>
+
 </div>
+ 
+<script>
+  function vew_task() {
+    const modal = document.getElementById("my_modal2");
+    modal.classList.add("open");
+  }
+  function close_vew_task() {
+    const closeBtn = document.querySelector(".close");
+    const modal = document.getElementById("my_modal2");
+    modal.classList.remove("open");
+  }
+</script>
+
 
 <script>
   function logout() {
