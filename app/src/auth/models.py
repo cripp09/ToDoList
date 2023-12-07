@@ -1,9 +1,11 @@
 from datetime import datetime
 
 from fastapi_users.db import SQLAlchemyBaseUserTable
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Column, String, Integer, TIMESTAMP, Boolean, MetaData, Table
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Column, String, Integer, TIMESTAMP, Boolean, MetaData, Table, ForeignKey, Date, LargeBinary
 from app.src.database import Base 
+
+
 
 metadata = MetaData()
 
@@ -19,6 +21,7 @@ user = Table(
     Column("is_superuser", Boolean, default=False, nullable=False),
     Column("is_verified", Boolean, default=False, nullable=False),
 )
+
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     id = Column(Integer, primary_key=True)
@@ -38,3 +41,14 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_verified: Mapped[bool] = mapped_column(
             Boolean, default=False, nullable=False
         )
+
+
+class Profile(Base):
+    __tablename__ = "profile"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("User", backref='profile')
+    first_name = Column(String)
+    last_name = Column(String)
+    date_of_birth = Column(Date)
+    photo = Column(LargeBinary)

@@ -10,12 +10,11 @@ app/src/auth/__pycache__/router.cpython-310.pyc
 app/src/auth/__pycache__/schemas.cpython-310.pyc
 app/src/auth/__pycache__/utils.cpython-310.pyc
 migrations/script.py.mako
-migrations/__pycache__/env.cpython-310.pyc
+migrations/__pycache__/
 migrations/versions/17e8373f77ea_create_user_model.py
 migrations/versions/__pycache__/17e8373f77ea_create_user_model.cpython-310.pyc
-migrations/env.py
 migrations/README
 app/__pycache__/main.cpython-310.pyc
 .vscode/launch.json
-migrations/
+migrations/versions
 app/src/__pycache__
