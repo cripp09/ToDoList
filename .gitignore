@@ -18,3 +18,4 @@ migrations/README
 app/__pycache__/main.cpython-310.pyc
 .vscode/launch.json
 migrations/
+app/src/__pycache__
