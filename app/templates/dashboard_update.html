@@ -1,0 +1,20 @@
+{% for i in items %}
+        <h1 onclick="vew_task()" style="cursor:pointer;font-size: 1.5rem;">{{i.title}}</h1>
+        <p style="width: 80%" >{{i.content}}</p>
+        <div style=" display: flex;">
+          <p> Статус: {{i.status}},{{i.priorty}},  Дата реализации: {{i.completion_date}} </p>&nbsp
+          <p onclick="vew_task()" style="cursor: pointer; color: rgb(0, 17, 255);"> подробнее...</p>
+          <!--  Дата создания: {{i.created_at}}, Дата реализации: {{i.completion_date}},
+          <br>Название проекта: {{i.project_name}}, Напомнить: {{i.remind_date}}-->
+        </div>
+        <hr width=80% size="2" style="color : rgb(0, 11, 128)" >
+{% endfor %}
+<div>
+    {% if page > 1 %}
+        <a href="/dashboard/{{ page - 1 }}">Previous</a>
+    {% endif %}
+
+    {% if page <= total_pages %}
+        <a href="/dashboard/{{ page + 1 }}">Next</a>
+    {% endif %}
+</div>

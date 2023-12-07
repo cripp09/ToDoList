@@ -21,7 +21,7 @@
       .then(response => {
         if (response.ok) {
           // Обработка успешного ответа
-          window.location.href = "/dashboard"; // перенаправление на другую страницу в случае успешной аутентификации
+          window.location.href = "/dashboard/1"; // перенаправление на другую страницу в случае успешной аутентификации
         } else {
           // Обработка ошибки
           document.getElementById("error-message").innerText = "Не правильный логин или пароль";

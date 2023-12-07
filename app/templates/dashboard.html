@@ -1,31 +1,38 @@
 {% extends "base2.html" %}
 {% block head %}
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous">
+</script>
 <link href="{{ url_for('static', path='css/dashboard.css') }}" rel="stylesheet">
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Ваш JavaScript-код здесь
-    // Получаем ссылку и модальное окно
-  const addTaskBtn = document.getElementById("addTaskBtn");
-  const modal = document.getElementById("my_modal");
+document.addEventListener("DOMContentLoaded", function() {
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const modal = document.getElementById("my_modal");
+    addTaskBtn.addEventListener("click", function(event) {
+      event.preventDefault(); // Предотвращаем переход по ссылке
+      modal.classList.add("open");
+    });
 
+    const add_Task_Btn = document.getElementById("add_Task_Btn");
+    add_Task_Btn.addEventListener("click", function(event) {
+      event.preventDefault(); // Предотвращаем переход по ссылке
+      modal.classList.add("open");
+    });
   
-  // При клике по ссылке отображаем модальное окно
-  addTaskBtn.addEventListener("click", function(event) {
-    event.preventDefault(); // Предотвращаем переход по ссылке
-    modal.classList.add("open");
-  });
-  
-  // При клике на крестик закрываем модальное окно
-  const closeBtn = document.querySelector(".close");
-  closeBtn.addEventListener("click", function() {
-    modal.classList.remove("open");
-  });
+    // При клике на крестик закрываем модальное окно
+    const closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click", function() {
+      modal.classList.remove("open");
+    });
 
-  const close_modal_btn = document.getElementById('close_modal_btn');
-  close_modal_btn.addEventListener("click", function() {
-    modal.classList.remove("open");
-  });
-  });
+    const close_modal_btn = document.getElementById('close_modal_btn');
+    close_modal_btn.addEventListener("click", function() {
+      modal.classList.remove("open");
+    });
+  
+});
   
 </script>
 
@@ -33,62 +40,61 @@
 
 {% block content %}
 <div class="container2">
-    <div class="column1">
+    <div class="column1" >
       <!-- Контент для первой колонки -->
-      
-      <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;">
+      <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 4.5rem;position: fixed;" >
         <div class="dropdown border-top">
-            <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
-            </a>
-            <ul class="dropdown-menu text-small shadow">
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Профиль</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li onclick="logout()" style="cursor: pointer;" class="dropdown-item">Выйти</a></li>
-            </ul>
+          <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="" alt="mdo" width="24" height="24" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small shadow" >
+            <li><a class="dropdown-item" id="addTaskBtn" href="#">Новая задача...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Профиль</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li onclick="logout()" style="cursor: pointer;" class="dropdown-item">Выйти</a></li>
+          </ul>
         </div>
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-          <li class="nav-item">
-            <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+          <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+              <a href="#" class="nav-link active py-3 border-bottom rounded-0" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Orders"><use xlink:href="#table"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"/></svg>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Телефонная книга" data-bs-toggle="tooltip" data-bs-placement="right">
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link py-3 border-bottom rounded-0" title="Телефонная книга" data-bs-toggle="tooltip" data-bs-placement="right">
               <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-            </a>
-          </li>
-        </ul>
-        
+              </a>
+            </li>
+          </ul>
       </div>  
     </div>
-    <div class="column2">
+  <div class="column2">
       <!-- Контент для второй колонки -->
-      <div class="container_head" >
-        <a href="#" class="add_task" id="addTaskBtn"><span class="icon_add" aria-hidden="true"><svg width="13" height="13"><path fill="currentColor" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg></span> Добавить задачу</a>
-        <form id="search_field" class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+      <div class="container_head"  >
+        <a href="#" class="add_task" id="add_Task_Btn" ><span class="icon_add" aria-hidden="true"><svg width="13" height="13"><path fill="currentColor" fill-rule="evenodd" d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"></path></svg></span> Добавить задачу</a>
+        <form  id="search_field" class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
         <h2>Добро пожаловать, {{username}} </h2>
         <!-- Модальное окно -->
-        <div class="modal" id="my_modal">
+        <form id="modal_form">
+          <div class="modal" id="my_modal">
           <div class="modal-content">
             <span class="close">&times;</span>
             <p class="new_task_modal_window">
@@ -138,45 +144,70 @@
               </div>
               </p>
             <div class="container_btn" >
-              <button type="button" class="btn btn-success">Добавить</button>
+              <button type="submit" class="btn btn-success" id="add_button">Добавить</button>
               <button type="button" class="btn btn-secondary" id="close_modal_btn">Отменить</button>
             </div>
             
           </div>
+          </div>
+        </form>
+      </div> 
+      <hr width=95% size="2" color="#ff0000" />
+      <section  id="task_in_database">
+
+        {% for i in items %}
+        <h1 onclick="vew_task()" style="cursor:pointer;font-size: 1.5rem;">{{i.title}}</h1>
+        <p style="width: 80%" >{{i.content}}</p>
+        <div style=" display: flex;">
+          <p> Статус: {{i.status}},{{i.priorty}},  Дата реализации: {{i.completion_date}} </p>&nbsp
+          <p onclick="vew_task({{i.id}})" style="cursor: pointer; color: rgb(0, 17, 255);" id="task_id"  > подробнее...</p>
+          <!--  Дата создания: {{i.created_at}}, Дата реализации: {{i.completion_date}},
+          <br>Название проекта: {{i.project_name}}, Напомнить: {{i.remind_date}}-->
         </div>
-     </div> 
-    <hr width=95% size="2" color="#ff0000" />
-    <section>
-
-      {% for i in data %}
-      <h1 onclick="vew_task()" style="cursor:pointer;">{{i.title}}</h1>
-      <p>{{i.content}}</p>
-      <div style=" display: flex;">
-        <p> Статус: {{i.status}},{{i.priorty}},  Дата реализации: {{i.completion_date}} </p>&nbsp
-        <p onclick="vew_task()" style="cursor: pointer; color: rgb(0, 17, 255);"> подробнее...</p>
-      <!--  Дата создания: {{i.created_at}}, Дата реализации: {{i.completion_date}},
-        <br>Название проекта: {{i.project_name}}, Напомнить: {{i.remind_date}}-->
+        <hr width=80% size="2" style="color : rgb(0, 11, 128)" >
+        {% endfor %}
+        <div>
+          {% if page > 1 %}
+              <a id="paganation" href="/dashboard/{{ page - 1 }}">Previous</a>
+          {% endif %}
+  
+          {% if page <= total_pages %}
+              <a id="paganation" href="/dashboard/{{ page + 1 }}">Next</a>
+          {% endif %}
       </div>
-      <hr width=80% size="2" style="color : rgb(0, 11, 128)" >
-      {% endfor %}
-
-    </section>
+      </section>
     <div class="modal" id="my_modal2">
-      <div class="modal-content">
-        <span class="close" onclick="close_vew_task()">&times;</span>
-        <p class="new_task_modal_window">
-          <h4>asdasdas</h4>
-        </p>
+      <div class="modal-content" id="modal-content12">
+        
       </div>
     </div>
 
-</div>
+  </div>
  
 <script>
-  function vew_task() {
+  function vew_task(task_id) {
+    
+    var task = {
+      id : task_id
+    }
+    $.ajax({
+      type: "POST",
+      url: "/dashboard/",
+      headers: {
+        'Content-Type': 'application/json'
+        },
+      data: JSON.stringify(task),
+      success: function(result){
+        console.log(result);
+        $("#modal-content12").html(result);
+        
+      }
+    });
     const modal = document.getElementById("my_modal2");
     modal.classList.add("open");
-  }
+  };
+    
+
   function close_vew_task() {
     const closeBtn = document.querySelector(".close");
     const modal = document.getElementById("my_modal2");
@@ -226,50 +257,69 @@
 </script>
 
 <script>
-// Получение кнопки "Добавить"
-var addButton = document.querySelector('.container_btn .btn-success');
+$(function(){
+  $("#modal_form").submit(function(e){
+      
+    var taskTitle = document.getElementById('task_title').value;
+    var taskContent = document.getElementById('task_content').value;
+    var dueDate = document.getElementById('Calendar').value;
+    var remindDate = document.getElementById('remind_date').innerText;
+    var priority = document.getElementById('btn_priority').innerText;
+    var status = document.getElementById('btn_status').innerText;
+    var project = document.getElementById('btn_project').innerText;
+    // Создание объекта данных для отправки
+    var data = {
+      title: taskTitle,
+      content: taskContent,
+      status: status,
+      priorty: priority,
+      completion_date: dueDate.replace("T", " "),
+      project_name: project,
+      remind_date: remindDate,
+    };
 
-// Добавление слушателя событий на кнопку "Добавить"
-addButton.addEventListener('click', function() {
-  // Получение значений полей ввода
-  var taskTitle = document.getElementById('task_title').value;
-  var taskContent = document.getElementById('task_content').value;
-  var dueDate = document.getElementById('Calendar').value;
-  var remindDate = document.getElementById('remind_date').innerText;
-  var priority = document.getElementById('btn_priority').innerText;
-  var status = document.getElementById('btn_status').innerText;
-  var project = document.getElementById('btn_project').innerText;
-  // Создание объекта данных для отправки
-  var data = {
-    title: taskTitle,
-    content: taskContent,
-    status: status,
-    priorty: priority,
-    completion_date: dueDate.replace("T", " "),
-    project_name: project,
-    remind_date: remindDate,
-  };
-
-  // Опции для запроса
-  var options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  };
-
-  // Отправка запроса
-  fetch('/dashboard', options)
-    .then(function(response) {
-      // Обрабатывать ответ от сервера здесь
-      console.log(response);
-    })
-    .catch(function(error) {
-      // Обрабатывать ошибку здесь
-      console.error(error);
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/dashboard/1",
+      headers: {
+        'Content-Type': 'application/json'
+        },
+      data: JSON.stringify(data),
+      success: function(result){
+        console.log(result);
+        $("#task_in_database").html(result);
+        
+      }
     });
+    taskTitle.value = "";
+    taskContent.value = "";
+    status.innerText = "";
+    priority.innerText = "";
+    dueDate.value = "";
+    project.innerText = "";
+    remindDate.innerText = "";
+    const modal = document.getElementById("my_modal");
+    modal.classList.remove("open");
+  });
 });
+</script>
+
+<script>
+(function() {
+    const links = document.getElementById("paganation");
+
+    (link => {
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            fetch(this.getAttribute("href"))
+                .then(response => response.text())
+                .then(html => document.querySelector("body").innerHTML = html)
+                .catch(error => console.log(error));
+        });
+    });
+})();
 </script>
 
 <script>
@@ -285,5 +335,9 @@ addButton.addEventListener('click', function() {
   btn_text.innerText = innet_text;
   // Дальнейшие действия с переменной status
   }
+</script>
+
+<script>
+
 </script>
 {% endblock %}

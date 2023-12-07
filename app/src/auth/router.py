@@ -24,14 +24,22 @@ def sign_in_get(request: Request):
     return templates.TemplateResponse("sign_in.html", {"request":request})
 
 
-@router.get("/dashboard")
-async def sign_in_get(request: Request, user: User = Depends(current_user)):
+@router.get("/dashboard/{page}")
+async def sign_in_get(page:int,request: Request, user: User = Depends(current_user)):
     username = user.username
-    data = await get_data(user.id)
-    print(data)      
+    data = await get_data(user.id) 
+
+    total_items = len(data)
+    items_per_page = 5# Количество элементов на одной странице
+    total_pages = total_items // items_per_page
+    offset = (page - 1) * items_per_page
+    items = data[offset:offset + items_per_page]
+
     return templates.TemplateResponse("dashboard.html", {"request":request,
                                                          'username': username,
-                                                         "data": data})
+                                                         "items": items,
+                                                         "page": page,
+                                                         "total_pages": total_pages})
 
 @router.get("/checkmail/{email}")
 def check_mail(request: Request, email: str):

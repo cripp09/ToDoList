@@ -1,0 +1,19 @@
+{% for i in items %}
+    <span class="close" onclick="close_vew_task()">&times;</span>
+    <p class="new_task_modal_window">
+    <h1 style="cursor:pointer;font-size: 1.5rem;">{{i.title}}</h1>
+    <hr width=95% size="2" color="#ff0000" />
+    <p style="width: 80%" >{{i.content}}</p>
+    <hr width=95% size="2" color="#ff0000" />
+      <div style=" display: flex;">
+        <ul>
+            <li>Статус: {{i.status}},&nbsp;{{i.priorty}}</li>
+            <li>Дата реализации: {{i.completion_date}}</li>
+            <li> Дата создания: {{i.created_at}}</li>
+            <li>Дата реализации: {{i.completion_date}}</li>
+            <li>Название проекта: {{i.project_name}}</li>
+            <li>Напомнить: {{i.remind_date}}</li>
+        </ul>
+      </div>
+    </p>
+{% endfor %}

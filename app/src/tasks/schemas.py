@@ -15,3 +15,6 @@ class PostTaskModel(BaseModel):
     completion_date: str
     project_name: str
     remind_date: str
+
+class PostTaskModelWithId(BaseModel):
+    id: int

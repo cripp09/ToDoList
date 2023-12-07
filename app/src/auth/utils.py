@@ -15,10 +15,10 @@ async def get_user_db(session: AsyncSession = Depends(get_async_session)):
 # Запрос данных из базы данных
 async def get_data(user):
     async with get_session() as session:
-        query = text(f"SELECT * FROM task WHERE user_id = {user} ")
+        query = text(f"SELECT * FROM task WHERE user_id = {user} ORDER BY created_at DESC")
         result = await session.execute(query)
-        data = result.fetchall()
-    return data
+        datas = result.fetchall()
+    return datas
 
 
 def send_mail_verify(user, token):
