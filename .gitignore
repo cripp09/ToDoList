@@ -18,3 +18,9 @@ app/__pycache__/main.cpython-310.pyc
 .vscode/launch.json
 migrations/versions
 app/src/__pycache__
+app/src/tasks/__pycache__
+app/static/img/2_test.jpg
+app/static/img/edit.png
+app/static/img/image.jpg
+app/static/img/
+

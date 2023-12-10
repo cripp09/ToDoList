@@ -3,7 +3,8 @@ from os import environ
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from app.src.auth.models import user, Profile
+from app.src.auth.models import user
+from app.src.auth.models import profile
 from app.src.tasks.models import task_table
 
 
@@ -27,7 +28,7 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-target_metadata = [user.metadata, task_table.metadata, Profile.metadata]
+target_metadata = [user.metadata, task_table.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

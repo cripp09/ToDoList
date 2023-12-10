@@ -4,6 +4,7 @@ from app.src.auth.models import User
 from app.src.auth.base_config import current_user
 from app.src.auth.utils import get_data,send_mail_verify
 from app.src.database import get_session
+from app.src.tasks.utils import get_profile_with_id
 
 
 templates = Jinja2Templates(directory="app/templates")
@@ -28,7 +29,7 @@ def sign_in_get(request: Request):
 async def sign_in_get(page:int,request: Request, user: User = Depends(current_user)):
     username = user.username
     data = await get_data(user.id) 
-
+    profile_data = await get_profile_with_id(user.id)
     total_items = len(data)
     items_per_page = 5# Количество элементов на одной странице
     total_pages = total_items // items_per_page
@@ -39,7 +40,8 @@ async def sign_in_get(page:int,request: Request, user: User = Depends(current_us
                                                          'username': username,
                                                          "items": items,
                                                          "page": page,
-                                                         "total_pages": total_pages})
+                                                         "total_pages": total_pages,
+                                                         "img": profile_data})
 
 @router.get("/checkmail/{email}")
 def check_mail(request: Request, email: str):

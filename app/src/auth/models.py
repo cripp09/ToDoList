@@ -14,7 +14,7 @@ user = Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("email", String(320), unique=True, index=True, nullable=False),
-    Column("username", String(100),unique=True, index=True),
+    Column("username", String(100),unique=False, index=True),
     Column("hashed_password", String(), nullable=False),
     Column("registered_at", TIMESTAMP, default=datetime.utcnow),
     Column("is_active", Boolean, default=True, nullable=False),
@@ -22,6 +22,18 @@ user = Table(
     Column("is_verified", Boolean, default=False, nullable=False),
 )
 
+
+profile = Table(
+    "profile",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("user_id", Integer, ForeignKey(user.c.id)),
+    Column("first_name", String(100),unique=False, index=True),
+    Column("last_name",String(100),unique=False, index=True),
+    Column("date_of_birth",Date),
+    Column("photo",String(100),unique=False, index=True),
+
+)
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     id = Column(Integer, primary_key=True)
@@ -51,4 +63,4 @@ class Profile(Base):
     first_name = Column(String)
     last_name = Column(String)
     date_of_birth = Column(Date)
-    photo = Column(LargeBinary)
+    photo = Column(String)

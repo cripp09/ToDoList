@@ -1,0 +1,137 @@
+{% block head %}
+    <style>
+        h1 {
+            margin-top: 20px;
+        }
+        .profile {
+            display: flex;
+            flex-direction: column;
+        }
+        .profile_input {
+            border-radius: 5px;
+            width: 70%;
+            display: none;
+        }
+        .profile_photo {
+            border-radius: 5px;
+            width: 90%;
+            display: none;
+        }
+        .btn_edit_profile {
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+    <script>
+        function edit_profile() {
+            const profileInputs = document.getElementsByClassName("profile_input");
+            Array.from(profileInputs).forEach((element) => {
+                element.style.display = "block";
+        });
+            const profileP = document.getElementsByClassName("profile_p");
+            Array.from(profileP).forEach((element) => {
+                element.style.display = "none";
+            });
+            const profilePhoto = document.querySelector(".profile_photo");
+                profilePhoto.style.display = "block";
+    }   
+    </script>
+    <H1>Настройки профиля {{user}}</H1>
+    <button onclick="edit_profile()" class="btn_edit_profile" >Редактировать профиль</button>
+    <hr width=95% size="2" color="#ff0000" />
+{% endblock %}
+
+{% block content %}
+<div class="contayner_profile" style="display: flex;">
+
+    <div>
+        <form class="profile" action="" id="profile_form">
+            <label  for="first_name">Ваше имя:</label>
+            <input class="profile_input" type="text" id="first_name">
+            <p class="profile_p" id="profile_p"></p><br>
+            <label for="last_name">Фамилия:</label>
+            <input class="profile_input" type="text" id="last_name">
+            <p class="profile_p" id="profile_p"></p><br>
+            <label for="date_of_birth">Дата рождения:</label>
+            <input class="profile_input" type="date" id="date_of_birth">
+            <p class="profile_p" id="profile_p"></p><br>
+            <label for="photo">Фото профиля:</label>
+            <input class="profile_photo" type="file" id="photo"><br>
+            <input class="profile_input" id="btn_subm_profile" type="submit" value="Сохранить">
+        </form>
+    </div>
+    <div>
+        <canvas id="mycanvas">
+        </canvas>
+        <img style="display:none;" id="img_profile" width="512" height="512" src="">
+    </div>
+</div>
+    <script>
+        // Получаем элемент input с типом file
+        let bytes;
+        const inputFile = document.querySelector('input[type="file"]');
+        
+        // Обработчик события выбора файла
+        inputFile.addEventListener('change', () => {
+            // Получаем выбранный файл
+            const file = inputFile.files[0];
+            console.log(file)
+            // Создаем объект FileReader для чтения содержимого файла
+            const reader = new FileReader();
+           
+        // Обработчик события загрузки файла
+            reader.onload = (event) => {
+                var dataUri = event.target.result,
+                    context = document.getElementById("mycanvas").getContext("2d"),
+                        img = document.getElementById("img_profile");
+            
+                // ждать, пока изображение не будет полностью обработано
+                img.onload = function(event) {
+                    context.drawImage(img,0, 10, 512, 512);
+                };
+                img.src = dataUri;
+            };
+            //reader.readAsArrayBuffer(file);
+
+            reader.readAsDataURL(file);
+            //console.log(dataUri)
+          });
+
+    </script>
+        
+    <script>
+        $(function (){
+          $("#profile_form").submit(function(e){
+
+            var first_name = document.getElementById('first_name').value;
+            var last_name = document.getElementById('last_name').value;
+            var date_of_birth = document.getElementById('date_of_birth').value;
+            var photo = document.getElementById('img_profile').getAttribute('src');
+            var photo = photo.substring(photo.indexOf(',') + 1);
+            console.log(photo)
+            var profile = {
+                first_name: first_name,
+                last_name: last_name,
+                date_of_birth: date_of_birth,
+                photo: photo,
+            };
+            $.ajax({
+                type: "POST",
+                url: "/dashboard/profile/user/edit",
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                
+                data: JSON.stringify(profile),
+                success: function(result){
+                    console.log(result);
+                    //$("#task_in_database").html(result);
+                    
+                }
+                });
+            e.preventDefault();
+            console.log(profile);
+          });
+        })
+    </script>
+{% endblock %}
